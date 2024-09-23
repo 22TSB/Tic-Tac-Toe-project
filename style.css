@@ -23,14 +23,14 @@
     cursor: pointer;
 }
 
-.player1,
-.player2 {
+.player1Selected,
+.player2Selected {
     background-image: url(src/player1.svg);
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.player2 {
+.player2Selected {
     background-image: url(src/player2.svg);
 }
 

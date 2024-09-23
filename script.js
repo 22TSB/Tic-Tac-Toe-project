@@ -22,12 +22,12 @@ const resetGame = () => {
     game = true;
     for (let i = 1; i <= 9; ++i) {
         if (player1.includes(i)) {
-            const cell = document.querySelector('.player1');
-            cell.removeAttribute('class', 'player1');
+            const cell = document.querySelector('.player1Selected');
+            cell.removeAttribute('class', 'player1Selected');
             cell.setAttribute('class', `cell${i}`);
         } else if (player2.includes(i)) {
-            const cell = document.querySelector('.player2');
-            cell.removeAttribute('class', 'player2');
+            const cell = document.querySelector('.player2Selected');
+            cell.removeAttribute('class', 'player2Selected');
             cell.setAttribute('class', `cell${i}`);
         }
     }
@@ -86,32 +86,36 @@ const checkWin = (sw) => {
 
 const cellSelect = (e) => {
     if (game) {
-        const cell = Number(
+        if (e.target.getAttribute('class')[
+            e.target.getAttribute('class').length - 1
+        ] !== "d") {
+            const cell = Number(
             e.target.getAttribute('class')[
                 e.target.getAttribute('class').length - 1
             ]
-        );
-        if (player1.length + player2.length > 8) {
-            gameOver('draw');
-            game = false;
-        } else if (sw && !player2.includes(cell) && !player1.includes(cell)) {
-            const colorCell = document.querySelector(`.cell${cell}`);
-            colorCell.setAttribute('class', 'player1');
-            player1.push(cell);
-            if (checkWin(sw)) {
-                gameOver('player1');
+            );
+            if (player1.length + player2.length > 8) {
+                gameOver('draw');
                 game = false;
+            } else if (sw && !player2.includes(cell) && !player1.includes(cell)) {
+                const colorCell = document.querySelector(`.cell${cell}`);
+                colorCell.setAttribute('class', 'player1Selected');
+                player1.push(cell);
+                if (checkWin(sw)) {
+                    gameOver('player1');
+                    game = false;
+                }
+                sw = false;
+            } else if (!player1.includes(cell) && !player2.includes(cell)) {
+                const colorCell = document.querySelector(`.cell${cell}`);
+                colorCell.setAttribute('class', 'player2Selected');
+                player2.push(cell);
+                if (checkWin(sw)) {
+                    gameOver('player2');
+                    game = false;
+                }
+                sw = true;
             }
-            sw = false;
-        } else if (!player1.includes(cell) && !player2.includes(cell)) {
-            const colorCell = document.querySelector(`.cell${cell}`);
-            colorCell.setAttribute('class', 'player2');
-            player2.push(cell);
-            if (checkWin(sw)) {
-                gameOver('player2');
-                game = false;
-            }
-            sw = true;
         }
     }
 };
