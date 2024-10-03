@@ -2,4 +2,4 @@
 ## Live Demo
 [demo](https://22tsb.github.io/Tic-Tac-Toe-project) 
 ## Technologies used
-HTML5, CSS
+HTML5, CSS, JS
